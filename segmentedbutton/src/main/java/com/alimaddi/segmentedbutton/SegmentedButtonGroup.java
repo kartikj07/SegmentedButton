@@ -397,27 +397,59 @@ public class SegmentedButtonGroup extends LinearLayout
 
                 // Find the first visible button to the left of this button (or null if none)
                 SegmentedButton leftButton = null;
-                for (int i = index1 - 1; i >= 0; --i)
+                if (getLayoutDirection() == LAYOUT_DIRECTION_LTR)
                 {
-                    final SegmentedButton button_ = buttons.get(i);
-                    if (button_.getVisibility() != GONE)
+                    for (int i = index1 - 1; i >= 0; --i)
                     {
-                        leftButton = button_;
-                        break;
+                        final SegmentedButton button_ = buttons.get(i);
+                        if (button_.getVisibility() != GONE)
+                        {
+                            leftButton = button_;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = index1 + 1; i < buttons.size(); i++)
+                    {
+                        final SegmentedButton button_ = buttons.get(i);
+                        if (button_.getVisibility() != GONE)
+                        {
+                            leftButton = button_;
+                            break;
+                        }
                     }
                 }
 
+
                 // Find the first visible button to the right of this button (or null if none)
                 SegmentedButton rightButton = null;
-                for (int i = index1 + 1; i < buttons.size(); ++i)
+                if (getLayoutDirection() == LAYOUT_DIRECTION_LTR)
                 {
-                    final SegmentedButton button_ = buttons.get(i);
-                    if (button_.getVisibility() != GONE)
+                    for (int i = index1 + 1; i < buttons.size(); ++i)
                     {
-                        rightButton = button_;
-                        break;
+                        final SegmentedButton button_ = buttons.get(i);
+                        if (button_.getVisibility() != GONE)
+                        {
+                            rightButton = button_;
+                            break;
+                        }
                     }
                 }
+                else
+                {
+                    for (int i = index1 - 1; i >= 0; i--)
+                    {
+                        final SegmentedButton button_ = buttons.get(i);
+                        if (button_.getVisibility() != GONE)
+                        {
+                            rightButton = button_;
+                            break;
+                        }
+                    }
+                }
+
 
                 // Below, we update the buttons leftButton and rightButton properties
                 // Think of the buttons in the group like a chain, each button knows about the button to the left and
@@ -487,13 +519,28 @@ public class SegmentedButtonGroup extends LinearLayout
             {
                 // Find the first visible button to the left of this button (or null if none)
                 SegmentedButton leftButton = null;
-                for (int i = buttons.size() - 1; i >= 0; --i)
+                if (getLayoutDirection() == LAYOUT_DIRECTION_LTR)
                 {
-                    final SegmentedButton button_ = buttons.get(i);
-                    if (button_.getVisibility() != GONE)
+                    for (int i = buttons.size() - 1; i >= 0; --i)
                     {
-                        leftButton = button_;
-                        break;
+                        final SegmentedButton button_ = buttons.get(i);
+                        if (button_.getVisibility() != GONE)
+                        {
+                            leftButton = button_;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < buttons.size(); i++)
+                    {
+                        final SegmentedButton button_ = buttons.get(i);
+                        if (button_.getVisibility() != GONE)
+                        {
+                            leftButton = button_;
+                            break;
+                        }
                     }
                 }
 
