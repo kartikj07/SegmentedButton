@@ -41,7 +41,7 @@
                 android:layout_marginRight="10dp"
                 android:text="Position: 1" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+            <com.alimaddi.segmentedbutton.SegmentedButtonGroup
                 android:id="@+id/buttonGroup_gradient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                 app:selectionAnimationDuration="1000"
                 app:selectionAnimationInterpolator="fastOutSlowIn">
 
-                <com.addisonelliott.segmentedbutton.SegmentedButton
+                <com.alimaddi.segmentedbutton.SegmentedButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -69,7 +69,7 @@
                     app:text="Button 1"
                     app:textColor="@color/black" />
 
-                <com.addisonelliott.segmentedbutton.SegmentedButton
+                <com.alimaddi.segmentedbutton.SegmentedButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -78,7 +78,7 @@
                     app:text="Button 2"
                     app:textColor="@color/black" />
 
-                <com.addisonelliott.segmentedbutton.SegmentedButton
+                <com.alimaddi.segmentedbutton.SegmentedButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -86,11 +86,11 @@
                     app:selectedTextColor="@color/white"
                     app:text="Button 3"
                     app:textColor="@color/black" />
-            </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+            </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
         </LinearLayout>
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        <com.alimaddi.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/buttonGroup_lordOfTheRings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
             app:rippleColor="@color/green_800"
             app:selectedBackground="@color/green_900">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -121,7 +121,7 @@
                 app:text="Aragorn"
                 app:textColor="@color/black" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -133,7 +133,7 @@
                 app:text="Gimli"
                 app:textColor="@color/black" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -144,9 +144,9 @@
                 app:selectedTextColor="@color/yellow_200"
                 app:text="Legolas"
                 app:textColor="@color/black" />
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+        </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        <com.alimaddi.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/buttonGroup_DCSuperheros"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
             app:selectionAnimationDuration="1000"
             app:selectionAnimationInterpolator="bounce">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -179,7 +179,7 @@
                 app:text="Diana"
                 app:textColor="@color/black" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -194,7 +194,7 @@
                 app:text="Batman"
                 app:textColor="@color/black" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -208,14 +208,14 @@
                 app:selectedTextColor="@color/red_500"
                 app:text="Clark"
                 app:textColor="@color/black" />
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+        </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+            <com.alimaddi.segmentedbutton.SegmentedButtonGroup
                 android:id="@+id/buttonGroup_marvelSuperheros"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -232,7 +232,7 @@
                 app:rippleColor="@color/blue_300"
                 app:selectedBackground="@color/yellow_600">
 
-                <com.addisonelliott.segmentedbutton.SegmentedButton
+                <com.alimaddi.segmentedbutton.SegmentedButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -241,7 +241,7 @@
                     app:drawableTint="@color/yellow_600"
                     app:selectedDrawableTint="@color/black" />
 
-                <com.addisonelliott.segmentedbutton.SegmentedButton
+                <com.alimaddi.segmentedbutton.SegmentedButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -250,9 +250,9 @@
                     app:drawableTint="@color/DarkRed"
                     app:selectedDrawableTint="@color/black" />
 
-            </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+            </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
-            <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+            <com.alimaddi.segmentedbutton.SegmentedButtonGroup
                 android:id="@+id/buttonGroup_guys"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -267,24 +267,24 @@
                 app:rippleColor="@color/black"
                 app:selectedBackground="@color/DarkRed">
 
-                <com.addisonelliott.segmentedbutton.SegmentedButton
+                <com.alimaddi.segmentedbutton.SegmentedButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="8dp"
                     app:drawable="@drawable/ic_b17" />
 
-                <com.addisonelliott.segmentedbutton.SegmentedButton
+                <com.alimaddi.segmentedbutton.SegmentedButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="8dp"
                     app:drawable="@drawable/ic_b6" />
 
-            </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+            </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
         </LinearLayout>
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        <com.alimaddi.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/buttonGroup_starWars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -301,7 +301,7 @@
             app:rippleColor="@color/red_200"
             app:selectedBackground="@color/green_200">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -311,7 +311,7 @@
                 android:paddingTop="6dp"
                 app:drawable="@drawable/ic_b8" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -321,7 +321,7 @@
                 android:paddingTop="6dp"
                 app:drawable="@drawable/ic_b9" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -331,9 +331,9 @@
                 android:paddingTop="6dp"
                 app:drawable="@drawable/ic_b11" />
 
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+        </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        <com.alimaddi.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/buttonGroup_darthVader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -347,7 +347,7 @@
             app:selectionAnimationDuration="1000"
             app:selectionAnimationInterpolator="fastOutSlowIn">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -355,7 +355,7 @@
                 app:drawableTint="@color/white"
                 app:selectedDrawableTint="@color/black" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
@@ -363,7 +363,7 @@
                 app:drawableTint="@color/white"
                 app:selectedDrawableTint="@color/black" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -371,7 +371,7 @@
                 app:drawableTint="@color/white"
                 app:selectedDrawableTint="@color/black" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
@@ -379,7 +379,7 @@
                 app:drawableTint="@color/white"
                 app:selectedDrawableTint="@color/black" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -387,7 +387,7 @@
                 app:drawableTint="@color/white"
                 app:selectedDrawableTint="@color/black" />
 
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+        </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
         <TextView
             android:layout_width="wrap_content"
@@ -398,7 +398,7 @@
             android:text="Draggable Segmented Group:"
             android:textSize="12sp" />
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        <com.alimaddi.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/buttonGroup_draggable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -414,7 +414,7 @@
             app:selectedBackground="@color/green_800"
             app:selectionAnimationDuration="1000">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -426,7 +426,7 @@
                 app:textColor="@color/black"
                 app:textSize="24sp" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -438,7 +438,7 @@
                 app:textColor="@color/black"
                 app:textSize="24sp" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -450,7 +450,7 @@
                 app:textColor="@color/black"
                 app:textSize="24sp" />
 
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+        </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
         <TextView
             android:layout_width="wrap_content"
@@ -461,7 +461,7 @@
             android:text="Using dynamic drawable:"
             android:textSize="12sp" />
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        <com.alimaddi.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/buttonGroup_dynamic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -475,7 +475,7 @@
             app:selectionAnimationDuration="1000"
             app:selectionAnimationInterpolator="fastOutSlowIn">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:id="@+id/button_left"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -487,7 +487,7 @@
                 app:selectedDrawableTint="@color/black"
                 app:text="Left" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:id="@+id/button_right"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -498,9 +498,9 @@
                 app:selectedDrawableTint="@color/black"
                 app:text="Right" />
 
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+        </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        <com.alimaddi.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/buttonGroup_pickupDropoffBoth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -513,7 +513,7 @@
             app:rippleColor="@color/green_800"
             app:selectedBackground="@color/blue_600">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -523,7 +523,7 @@
                 app:text="Both"
                 app:textColor="@color/red" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -533,7 +533,7 @@
                 app:text="Pickup"
                 app:textColor="@color/black" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -543,9 +543,9 @@
                 app:text="Dropoff"
                 app:textColor="@color/black" />
 
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+        </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        <com.alimaddi.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/buttonGroup_starWarsAlt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -562,30 +562,30 @@
             app:rippleColor="@color/red_200"
             app:selectedBackground="@color/green_200">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="6dp"
                 android:paddingTop="6dp"
                 app:drawable="@drawable/ic_b8" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="128dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="6dp"
                 android:paddingTop="6dp"
                 app:drawable="@drawable/ic_b9" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="6dp"
                 android:paddingTop="6dp"
                 app:drawable="@drawable/ic_b11" />
 
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+        </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        <com.alimaddi.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/buttonGroup_roundSelectedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -601,7 +601,7 @@
             app:selectedButtonRadius="30dp"
             app:selectionAnimationDuration="1000">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -612,7 +612,7 @@
                 app:textColor="@color/black"
                 app:textSize="24sp" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -623,7 +623,7 @@
                 app:textColor="@color/black"
                 app:textSize="24sp" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -634,9 +634,9 @@
                 app:textColor="@color/black"
                 app:textSize="24sp" />
 
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+        </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        <com.alimaddi.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/buttonGroup_rounded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -649,7 +649,7 @@
             app:ripple="true"
             app:rippleColor="@color/blue_500">
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -659,7 +659,7 @@
                 app:textColor="@color/black"
                 app:textSize="20sp" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -669,7 +669,7 @@
                 app:textColor="@color/black"
                 app:textSize="20sp" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -679,7 +679,7 @@
                 app:textColor="@color/black"
                 app:textSize="20sp" />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -689,9 +689,9 @@
                 app:textColor="@color/black"
                 app:textSize="20sp" />
 
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+        </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
-        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+        <com.alimaddi.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/buttonGroup_vectorDrawable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -709,7 +709,7 @@
             app:rippleColor="@color/indigo_800"
             >
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -725,7 +725,7 @@
                 app:drawablePadding="4dp"
                 />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -741,7 +741,7 @@
                 app:drawablePadding="4dp"
                 />
 
-            <com.addisonelliott.segmentedbutton.SegmentedButton
+            <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -757,7 +757,7 @@
                 app:drawablePadding="4dp"
                 />
 
-        </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+        </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
     </LinearLayout>
 
 </ScrollView>

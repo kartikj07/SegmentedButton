@@ -80,7 +80,7 @@ android {
 
 ### Layout XML
 ```xml
-<com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+<com.alimaddi.segmentedbutton.SegmentedButtonGroup
     android:id="@+id/buttonGroup_lordOfTheRings"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -99,7 +99,7 @@ android {
     app:rippleColor="@color/green_800"
     app:selectedBackground="@color/green_900">
 
-    <com.addisonelliott.segmentedbutton.SegmentedButton
+    <com.alimaddi.segmentedbutton.SegmentedButton
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -111,7 +111,7 @@ android {
         app:text="Aragorn"
         app:textColor="@color/black" />
 
-    <com.addisonelliott.segmentedbutton.SegmentedButton
+    <com.alimaddi.segmentedbutton.SegmentedButton
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -123,7 +123,7 @@ android {
         app:text="Gimli"
         app:textColor="@color/black" />
 
-    <com.addisonelliott.segmentedbutton.SegmentedButton
+    <com.alimaddi.segmentedbutton.SegmentedButton
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -134,7 +134,7 @@ android {
         app:selectedTextColor="@color/yellow_200"
         app:text="Legolas"
         app:textColor="@color/black" />
-</com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+</com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 ```
 
 ### Java

@@ -44,7 +44,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-import codetail.graphics.drawables.DrawableHotspotTouch;
+//import codetail.graphics.drawables.DrawableHotspotTouch;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -138,7 +138,7 @@ public class SegmentedButton extends View
     // RippleDrawable is used for drawing ripple animation when tapping buttons on Lollipop and above devices (API 21+)
     private RippleDrawable rippleDrawableLollipop;
     // Backport for RippleDrawable for API 16-20 devices
-    private codetail.graphics.drawables.RippleDrawable rippleDrawable;
+//    private codetail.graphics.drawables.RippleDrawable rippleDrawable;
 
     // Color filters used for tinting the button drawable in normal and when button is selected, will be null for no
     // tint
@@ -606,8 +606,8 @@ public class SegmentedButton extends View
             rippleDrawableLollipop.setBounds(0, 0, width, height);
 
         // Set bounds of ripple drawable if it exists
-        if (rippleDrawable != null)
-            rippleDrawable.setBounds(0, 0, width, height);
+//        if (rippleDrawable != null)
+//            rippleDrawable.setBounds(0, 0, width, height);
     }
 
     // endregion
@@ -797,10 +797,10 @@ public class SegmentedButton extends View
         }
 
         // Draw ripple drawable to show ripple effect on click
-        if (rippleDrawable != null)
-        {
-            rippleDrawable.draw(canvas);
-        }
+//        if (rippleDrawable != null)
+//        {
+//            rippleDrawable.draw(canvas);
+//        }
 
         canvas.restore();
     }
@@ -907,8 +907,8 @@ public class SegmentedButton extends View
             rippleDrawableLollipop.setState(getDrawableState());
 
         // Update the state for the ripple drawable
-        if (rippleDrawable != null)
-            rippleDrawable.setState(getDrawableState());
+//        if (rippleDrawable != null)
+//            rippleDrawable.setState(getDrawableState());
     }
 
     /**
@@ -928,7 +928,7 @@ public class SegmentedButton extends View
         // Return true if the drawable is the ripple drawable (backport or regular)
         // Normally the super class handles this automatically for the background drawable but the ripple drawable is
         // not the background in this instance
-        return who == rippleDrawableLollipop || who == rippleDrawable || super.verifyDrawable(who);
+        return who == rippleDrawableLollipop /*|| who == rippleDrawable*/ || super.verifyDrawable(who);
     }
 
     // endregion
@@ -1425,7 +1425,7 @@ public class SegmentedButton extends View
         {
             // Set both ripple drawables to null so that we do not draw the ripple
             rippleDrawableLollipop = null;
-            rippleDrawable = null;
+//            rippleDrawable = null;
         }
     }
 
@@ -1447,18 +1447,18 @@ public class SegmentedButton extends View
             rippleDrawableLollipop.setBounds(0, 0, getWidth(), getHeight());
 
             // Disable/nullify the pre-lollipop RippleDrawable backport
-            rippleDrawable = null;
+//            rippleDrawable = null;
         }
         else
         {
-            rippleDrawable = new codetail.graphics.drawables.RippleDrawable(ColorStateList.valueOf(rippleColor), null,
-                                                                            null);
+//            rippleDrawable = new codetail.graphics.drawables.RippleDrawable(ColorStateList.valueOf(rippleColor), null,
+//                                                                            null);
             // setCallback on Drawable allows animations to be scheduled and the drawable to invalidate the view on
             // animation
-            rippleDrawable.setCallback(this);
-            rippleDrawable.setBounds(0, 0, getWidth(), getHeight());
+//            rippleDrawable.setCallback(this);
+//            rippleDrawable.setBounds(0, 0, getWidth(), getHeight());
 
-            setOnTouchListener(new DrawableHotspotTouch(rippleDrawable));
+//            setOnTouchListener(new DrawableHotspotTouch(rippleDrawable));
 
             // Disable/nullify the lollipop RippleDrawable
             rippleDrawableLollipop = null;
