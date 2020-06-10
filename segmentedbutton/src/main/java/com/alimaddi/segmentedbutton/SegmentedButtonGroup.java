@@ -18,6 +18,7 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,6 +41,8 @@ import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
+import androidx.core.text.TextUtilsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
@@ -47,6 +50,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SegmentedButtonGroup extends LinearLayout
 {
@@ -374,11 +378,19 @@ public class SegmentedButtonGroup extends LinearLayout
     {
         if (child instanceof SegmentedButton)
         {
+            Log.i("sb_find_q", "addView ===========================================================");
+            Log.i("sb_find_q", "LAYOUT_DIRECTION_LTR = " + (getLayoutDirection() == LAYOUT_DIRECTION_LTR));
+            Log.i("sb_find_q", "*LAYOUT_DIRECTION_LTR = " + (buttonLayout.getLayoutDirection() == LAYOUT_DIRECTION_LTR));
+            Log.i("sb_find_q", "**LAYOUT_DIRECTION_LTR = " + (buttonLayout.getParent().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
+            Log.i("sb_find_q", "***LAYOUT_DIRECTION_LTR = " + (TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR));
+
             final SegmentedButton button = (SegmentedButton)child;
 
             // New position of the button will be the size of the buttons before the button is added
             // For example, if there are 5 buttons, then the indices are 0, 1, 2, 3, 4, so the next index is 5!
             final int position = buttons.size();
+            Log.i("sb_find_q", "addView => current buttons.size() = " + buttons.size());
 
             // Give radius, selected button radius, default background and default selected background to the button
             // The default backgrounds will only update the background of the button if there is not a background set
@@ -394,10 +406,12 @@ public class SegmentedButtonGroup extends LinearLayout
                 // otherwise)
                 final int index1 = SegmentedButtonGroup.this.buttonLayout.indexOfChild(button1);
                 SegmentedButtonGroup.this.dividerLayout.getChildAt(index1).setVisibility(visibility);
+                Log.i("sb_find_q", "_setOnVisibilityChangedListener => index1 = " + index1);
 
                 // Find the first visible button to the left of this button (or null if none)
                 SegmentedButton leftButton = null;
-                if (getLayoutDirection() == LAYOUT_DIRECTION_LTR)
+                if (TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
                 {
                     for (int i = index1 - 1; i >= 0; --i)
                     {
@@ -425,7 +439,8 @@ public class SegmentedButtonGroup extends LinearLayout
 
                 // Find the first visible button to the right of this button (or null if none)
                 SegmentedButton rightButton = null;
-                if (getLayoutDirection() == LAYOUT_DIRECTION_LTR)
+                if (TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
                 {
                     for (int i = index1 + 1; i < buttons.size(); ++i)
                     {
@@ -456,7 +471,7 @@ public class SegmentedButtonGroup extends LinearLayout
                 // right of itself.
                 if (visibility == GONE)
                 {
-                    // This button is being hidden, we leave the left/right button properties alone because they dont
+                    // This button is being hidden, we leave the left/right button properties alone because they don't
                     // matter
                     //
                     // Update the "chain" of buttons so that the first visible left button is linked to the first
@@ -515,32 +530,18 @@ public class SegmentedButtonGroup extends LinearLayout
 
             // If this is NOT the first item in the group, then update the previous button and this button with its
             // respective right button and left button.
-            if (position != 0)
+            if (TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR && position != 0)
             {
                 // Find the first visible button to the left of this button (or null if none)
                 SegmentedButton leftButton = null;
-                if (getLayoutDirection() == LAYOUT_DIRECTION_LTR)
+                for (int i = buttons.size() - 1; i >= 0; --i)
                 {
-                    for (int i = buttons.size() - 1; i >= 0; --i)
+                    final SegmentedButton button_ = buttons.get(i);
+                    if (button_.getVisibility() != GONE)
                     {
-                        final SegmentedButton button_ = buttons.get(i);
-                        if (button_.getVisibility() != GONE)
-                        {
-                            leftButton = button_;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < buttons.size(); i++)
-                    {
-                        final SegmentedButton button_ = buttons.get(i);
-                        if (button_.getVisibility() != GONE)
-                        {
-                            leftButton = button_;
-                            break;
-                        }
+                        leftButton = button_;
+                        break;
                     }
                 }
 
@@ -550,6 +551,7 @@ public class SegmentedButtonGroup extends LinearLayout
                 {
                     leftButton.setRightButton(button.getVisibility() != GONE ? button : null);
                     // Update background clip path for that button since it may need to add/remove round edges
+                    Log.i("sb_find_q", "addView => setupBackgroundClipPath for left Button of " + (buttons.size() + 1));
                     leftButton.setupBackgroundClipPath();
                 }
 
@@ -557,8 +559,38 @@ public class SegmentedButtonGroup extends LinearLayout
                 // In the case this button is not visible, then it does not matter since it wont be drawn
                 button.setLeftButton(leftButton);
             }
+            else if (TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_RTL && position != 0)
+            {
+                // Find the first visible button to the left of this button (or null if none)
+                SegmentedButton rightButton = null;
+                for (int i = buttons.size() - 1; i >= 0; --i)
+                {
+                    final SegmentedButton button_ = buttons.get(i);
+                    if (button_.getVisibility() != GONE)
+                    {
+                        rightButton = button_;
+                        break;
+                    }
+                }
+
+                // If there is a visible button to the left, then set it to point to this button if its visible or
+                // otherwise null to treat it as an end button
+                if (rightButton != null)
+                {
+                    rightButton.setLeftButton(button.getVisibility() != GONE ? button : null);
+                    // Update background clip path for that button since it may need to add/remove round edges
+                    Log.i("sb_find_q", "addView => setupBackgroundClipPath for right Button of " + (buttons.size() + 1));
+                    rightButton.setupBackgroundClipPath();
+                }
+
+                // Always set this button to point to the leftmost button
+                // In the case this button is not visible, then it does not matter since it wont be drawn
+                button.setRightButton(rightButton);
+            }
 
             // Sets up the background clip path, selected button clip path, and selected button border
+            Log.i("sb_find_q", "addView => setupBackgroundClipPath for " + (buttons.size() + 1));
             button.setupBackgroundClipPath();
             button.setupSelectedButtonClipPath();
             button.setSelectedButtonBorder(selectedBorderWidth, selectedBorderColor, selectedBorderDashWidth,
@@ -789,6 +821,7 @@ public class SegmentedButtonGroup extends LinearLayout
         // result in a currentButtonPosition of 2 and the currentOffset to 0.25.
         final int currentButtonPosition = (int)currentPosition;
         final float currentOffset = currentPosition - currentButtonPosition;
+        Log.i("sb_find_a", "moveSelectedButton ==> currentButtonPosition = " + currentButtonPosition + "  :  currentOffset = " + currentOffset);
 
         // Get the current button end position, which will start at the current button plus 1 because the width of the
         // selected button is 1. Check each button to the right for the first one that is not GONE
@@ -807,7 +840,11 @@ public class SegmentedButtonGroup extends LinearLayout
         // offset given to the current button is 0.0f -> 1.0f and represents the relative X position to clip the
         // button at (going all the way to the right side of the button, i.e. 0.25 all the way to 1.0)
         final SegmentedButton currentButton = buttons.get(currentButtonPosition);
-        currentButton.clipRight(currentOffset);
+        if (TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+            currentButton.clipRight(currentOffset);
+        else
+            currentButton.clipLeft(currentOffset);
 
         // For the end button, we want to clip the left side of the button to match up with the right side of the
         // previous button. However, there is a slight chance the end button position might be out of range so we
@@ -816,7 +853,11 @@ public class SegmentedButtonGroup extends LinearLayout
         {
             // Grab the button directly to the right of the current button and clip the left
             final SegmentedButton currentEndButton = buttons.get(currentEndButtonPosition);
-            currentEndButton.clipLeft(currentOffset);
+            if (TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+                currentEndButton.clipLeft(currentOffset);
+            else
+                currentEndButton.clipRight(currentOffset);
         }
 
         // lastPosition is the last button position (whole integer) that the selected button began at in the last
@@ -1338,45 +1379,93 @@ public class SegmentedButtonGroup extends LinearLayout
         // Loop through the buttons between the start and stop position to find any buttons with visibility equal to
         // GONE. Add to a list for later
         final List<Integer> buttonGoneIndices = new ArrayList<>();
-        final boolean movingRight = currentPosition < position;
-        if (movingRight)
+        final boolean movingRight;
+        if (TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
         {
-            for (int i = (int)Math.ceil(currentPosition); i < position; ++i)
+            movingRight = currentPosition < position;
+            if (movingRight)
             {
-                if (buttons.get(i).getVisibility() == GONE)
-                    buttonGoneIndices.add(i);
+                for (int i = (int)Math.ceil(currentPosition); i < position; ++i)
+                {
+                    if (buttons.get(i).getVisibility() == GONE)
+                        buttonGoneIndices.add(i);
+                }
             }
+            else
+            {
+                for (int i = (int)Math.floor(currentPosition); i > position; --i)
+                {
+                    if (buttons.get(i).getVisibility() == GONE)
+                        buttonGoneIndices.add(i + 1);
+                }
+            }
+
+            // Animate value from current position to the new position
+            // Fraction positions such as 1.25 means we are 75% in button 1 and 25% in button 2.
+            // The position indicates the position of the left side of the selected button
+            //
+            // The new position is adjusted to remove GONE buttons
+            buttonAnimator = ValueAnimator.ofFloat(currentPosition,
+                                                   movingRight ? position - buttonGoneIndices.size() : position + buttonGoneIndices.size());
         }
         else
         {
-            for (int i = (int)Math.floor(currentPosition); i > position; --i)
+            movingRight = currentPosition > position;
+            if (movingRight)
             {
-                if (buttons.get(i).getVisibility() == GONE)
-                    buttonGoneIndices.add(i + 1);
+                for (int i = (int)Math.floor(currentPosition); i > position; --i)
+                {
+                    if (buttons.get(i).getVisibility() == GONE)
+                        buttonGoneIndices.add(i + 1);
+                }
             }
+            else
+            {
+                for (int i = (int)Math.ceil(currentPosition); i < position; ++i)
+                {
+                    if (buttons.get(i).getVisibility() == GONE)
+                        buttonGoneIndices.add(i);
+                }
+            }
+
+            // Animate value from current position to the new position
+            // Fraction positions such as 1.25 means we are 75% in button 1 and 25% in button 2.
+            // The position indicates the position of the left side of the selected button
+            //
+            // The new position is adjusted to remove GONE buttons
+            buttonAnimator = ValueAnimator.ofFloat(currentPosition,
+                                                   movingRight ? position + buttonGoneIndices.size() : position - buttonGoneIndices.size());
         }
-
-        // Animate value from current position to the new position
-        // Fraction positions such as 1.25 means we are 75% in button 1 and 25% in button 2.
-        // The position indicates the position of the left side of the selected button
-        //
-        // The new position is adjusted to remove GONE buttons
-        buttonAnimator = ValueAnimator.ofFloat(currentPosition,
-                                               movingRight ? position - buttonGoneIndices.size() : position + buttonGoneIndices.size());
-
+        Log.i("sb_find_v", "======================================================================================================================");
+        Log.i("sb_find_a", "======================================================================================================================");
         // For each update to the animation value, move the button
         buttonAnimator.addUpdateListener(animation -> {
             float value = (float)animation.getAnimatedValue();
 
+            Log.i("sb_find_v", "animator ==> currentPosition = " + currentPosition + "  :  animatedValue = " + value
+                    + "  :  position = " + position);
             // Account for GONE buttons in between the indices
             // Depending on if we're moving left/right, we add/subtract one when a button is missing
             // This will skip the GONE button
-            for (int index : buttonGoneIndices)
+            for (int index : buttonGoneIndices) // TODO : compute this loop, what is true !
             {
-                if (movingRight && value >= index)
-                    value += 1;
-                else if (!movingRight && value <= index)
-                    value -= 1;
+//                if (TextUtilsCompat.getLayoutDirectionFromLocale(
+//                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+//                {
+                    if (movingRight && value >= index)
+                        value += 1;
+                    else if (!movingRight && value <= index)
+                        value -= 1;
+//                }
+//                else
+//                {
+//                    if (movingRight && value <= index)
+//                        value -= 1;
+//                    else if (!movingRight && value >= index)
+//                        value += 1;
+//                }
+
             }
 
             // Move to the new position

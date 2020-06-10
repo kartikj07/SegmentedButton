@@ -32,6 +32,7 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -43,10 +44,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.text.TextUtilsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 //import codetail.graphics.drawables.DrawableHotspotTouch;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Locale;
 
 //@SuppressWarnings("unused")
 //@SuppressLint("RtlHardcoded")
@@ -571,7 +575,8 @@ public class SegmentedButton extends View
             }
             else if (drawableGravity == Gravity.START)
             {
-                if (getLayoutDirection() == LAYOUT_DIRECTION_LTR)
+                if (TextUtilsCompat.getLayoutDirectionFromLocale(
+                        Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
                 {
                     textPosition.x = startPosition + drawableWidth + drawablePadding;
                     drawablePosition.x = startPosition;
@@ -584,7 +589,8 @@ public class SegmentedButton extends View
             }
             else if (drawableGravity == Gravity.END)
             {
-                if (getLayoutDirection() == LAYOUT_DIRECTION_LTR)
+                if (TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
                 {
                     textPosition.x = startPosition;
                     drawablePosition.x = startPosition + textWidth + drawablePadding;
@@ -723,7 +729,15 @@ public class SegmentedButton extends View
             // For the left-most button, the left button width is set to be the width of this button because it
             // doesn't matter.
             final float leftButtonWidth = isLeftButton() ? width : leftButton.getWidth();
-            rectF.set((relativeClipPosition - 1.0f) * leftButtonWidth, 0.0f, relativeClipPosition * width, height);
+            if (TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+            {
+                rectF.set((relativeClipPosition - 1.0f) * leftButtonWidth, 0.0f, relativeClipPosition * width, height);
+            }
+            else
+            {
+                rectF.set((relativeClipPosition - 1.0f) * leftButtonWidth, 0.0f, (1.0f - relativeClipPosition) * width, height);
+            }
         }
         else
         {
@@ -739,7 +753,15 @@ public class SegmentedButton extends View
             // selectedButtonRadius > 0). Without the correct right clip side, the rounded corners will not smoothly
             // transition from the button to the right to this button.
             final float rightButtonWidth = isRightButton() ? width : rightButton.getWidth();
-            rectF.set(relativeClipPosition * width, 0.0f, width + relativeClipPosition * rightButtonWidth, height);
+            if (TextUtilsCompat.getLayoutDirectionFromLocale(
+                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+            {
+                rectF.set(relativeClipPosition * width, 0.0f, width + relativeClipPosition * rightButtonWidth, height);
+            }
+            else
+            {
+                rectF.set((1.0f - relativeClipPosition) * width, 0.0f, width + (1.0f - relativeClipPosition) * rightButtonWidth, height);
+            }
         }
 
         // Clip canvas for drawing the selected button view
@@ -1082,6 +1104,7 @@ public class SegmentedButton extends View
      */
     void setupBackgroundClipPath()
     {
+        Log.i("sb_find_q", "setupBackgroundClipPath =====");
         // If there is no background radius then skip
         if (backgroundRadius == 0)
         {
@@ -1097,9 +1120,11 @@ public class SegmentedButton extends View
 
         // Background radius, shorthand variable to make code cleaner
         final float br = backgroundRadius;
+        Log.i("sb_find_q", "setupBackgroundClipPath =>  backgroundRadius = " + backgroundRadius);
 
         if (isRounded() || (isLeftButton() && isRightButton()))
         {
+            Log.i("sb_find_q", "setupBackgroundClipPath =>  isRounded = " + isRounded());
             // Add radius on all sides, left & right
             backgroundClipPath = new Path();
             backgroundClipPath.addRoundRect(rectF,
@@ -1107,18 +1132,21 @@ public class SegmentedButton extends View
         }
         else if (isLeftButton())
         {
+            Log.i("sb_find_q", "setupBackgroundClipPath =>  isLeftButton = " + isLeftButton());
             // Add radius on left side only
             backgroundClipPath = new Path();
             backgroundClipPath.addRoundRect(rectF, new float[] {br, br, 0, 0, 0, 0, br, br}, Direction.CW);
         }
         else if (isRightButton())
         {
+            Log.i("sb_find_q", "setupBackgroundClipPath =>  isRightButton = " + isRightButton());
             // Add radius on right side only
             backgroundClipPath = new Path();
             backgroundClipPath.addRoundRect(rectF, new float[] {0, 0, br, br, br, br, 0, 0}, Direction.CW);
         }
         else
         {
+            Log.i("sb_find_q", "setupBackgroundClipPath =>  else = ");
             backgroundClipPath = null;
         }
 
