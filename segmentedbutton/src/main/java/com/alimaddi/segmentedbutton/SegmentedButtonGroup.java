@@ -831,6 +831,8 @@ public class SegmentedButtonGroup extends LinearLayout
      */
     private void moveSelectedButton(final float position)
     {
+        boolean isLTR = getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR;
+        Log.i("sb_find_q", "moveSelectedButton =====");
         // Update current position to be the animated value
         // This is a float value indicating where the left-side of the button is located
         // For example, a currentPosition of 1.0 would mean all of button 1 was selected
@@ -861,8 +863,8 @@ public class SegmentedButtonGroup extends LinearLayout
         // offset given to the current button is 0.0f -> 1.0f and represents the relative X position to clip the
         // button at (going all the way to the right side of the button, i.e. 0.25 all the way to 1.0)
         final SegmentedButton currentButton = buttons.get(currentButtonPosition);
-        Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
-        if (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR)
+        Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + isLTR);
+        if (isLTR)
             currentButton.clipRight(currentOffset);
         else
             currentButton.clipLeft(currentOffset);
@@ -874,8 +876,8 @@ public class SegmentedButtonGroup extends LinearLayout
         {
             // Grab the button directly to the right of the current button and clip the left
             final SegmentedButton currentEndButton = buttons.get(currentEndButtonPosition);
-            Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
-            if (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR)
+            Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + isLTR);
+            if (isLTR)
                 currentEndButton.clipLeft(currentOffset);
             else
                 currentEndButton.clipRight(currentOffset);
@@ -890,7 +892,10 @@ public class SegmentedButtonGroup extends LinearLayout
         // the normal button
         if (lastPosition != currentButtonPosition && lastPosition != currentEndButtonPosition)
         {
-            buttons.get(lastPosition).clipRight(1.0f);
+            if (isLTR)
+                buttons.get(lastPosition).clipRight(1.0f);
+            else
+                buttons.get(lastPosition).clipRight(0.0f);
         }
 
         // Repeat same process above but check with where the last button position ended. Note, this last end position
@@ -905,7 +910,12 @@ public class SegmentedButtonGroup extends LinearLayout
         // Clip any views like explained above
         if (lastEndPosition != currentEndButtonPosition && lastEndPosition != currentButtonPosition
                 && lastEndPosition < buttons.size())
-            buttons.get(lastEndPosition).clipRight(1.0f);
+        {
+            if (isLTR)
+                buttons.get(lastEndPosition).clipRight(1.0f);
+            else
+                buttons.get(lastEndPosition).clipRight(0.0f);
+        }
 
         // Update the lastPosition for the next animation frame
         lastPosition = currentButtonPosition;
@@ -1388,6 +1398,7 @@ public class SegmentedButtonGroup extends LinearLayout
      */
     public void setPosition(final int position, final boolean animate)
     {
+        Log.i("sb_find_q", "setPosition =====");
         boolean isLTR = getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR;
         // Return and do nothing in two cases
         // First, if the position is out of bounds.

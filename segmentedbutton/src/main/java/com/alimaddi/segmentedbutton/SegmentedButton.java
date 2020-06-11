@@ -215,6 +215,8 @@ public class SegmentedButton extends View
 
     private void init(Context context, @Nullable AttributeSet attrs)
     {
+        boolean isLTR = getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR;
+
         // Retrieve custom attributes
         getAttributes(context, attrs);
 
@@ -223,7 +225,10 @@ public class SegmentedButton extends View
 
         // Setup default values for clip position
         // By default, set to clip from left and have none of the selected view shown
-        relativeClipPosition = 0.0f;
+        if (isLTR)
+            relativeClipPosition = 0.0f;
+        else
+            relativeClipPosition = 1.0f;
         isClippingLeft = true;
 
         // Setup background clip path parameters
@@ -541,6 +546,7 @@ public class SegmentedButton extends View
      */
     private void updateSize()
     {
+        Log.i("sb_find_q", "updateSize =====");
         final int width = getWidth();
         final int height = getHeight();
         final int textWidth = hasText ? textStaticLayout.getWidth() : 0;
