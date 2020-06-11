@@ -484,6 +484,7 @@ public class SegmentedButton extends View
     @Override
     protected void onSizeChanged(final int w, final int h, final int oldWidth, final int oldHeight)
     {
+        Log.i("sb_find_q", "onSizeChanged =====");
         super.onSizeChanged(w, h, oldWidth, oldHeight);
 
         // Calculate new positions and bounds for text & drawable
@@ -575,8 +576,8 @@ public class SegmentedButton extends View
             }
             else if (drawableGravity == Gravity.START)
             {
-                if (TextUtilsCompat.getLayoutDirectionFromLocale(
-                        Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+                Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
+                if (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR)
                 {
                     textPosition.x = startPosition + drawableWidth + drawablePadding;
                     drawablePosition.x = startPosition;
@@ -589,8 +590,7 @@ public class SegmentedButton extends View
             }
             else if (drawableGravity == Gravity.END)
             {
-                if (TextUtilsCompat.getLayoutDirectionFromLocale(
-                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+                if (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR)
                 {
                     textPosition.x = startPosition;
                     drawablePosition.x = startPosition + textWidth + drawablePadding;
@@ -729,14 +729,13 @@ public class SegmentedButton extends View
             // For the left-most button, the left button width is set to be the width of this button because it
             // doesn't matter.
             final float leftButtonWidth = isLeftButton() ? width : leftButton.getWidth();
-            if (TextUtilsCompat.getLayoutDirectionFromLocale(
-                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+            if (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR)
             {
                 rectF.set((relativeClipPosition - 1.0f) * leftButtonWidth, 0.0f, relativeClipPosition * width, height);
             }
             else
             {
-                rectF.set((relativeClipPosition - 1.0f) * leftButtonWidth, 0.0f, (1.0f - relativeClipPosition) * width, height);
+                rectF.set((-1.0f * relativeClipPosition ) * leftButtonWidth, 0.0f, (1.0f - relativeClipPosition) * width, height);
             }
         }
         else
@@ -753,8 +752,7 @@ public class SegmentedButton extends View
             // selectedButtonRadius > 0). Without the correct right clip side, the rounded corners will not smoothly
             // transition from the button to the right to this button.
             final float rightButtonWidth = isRightButton() ? width : rightButton.getWidth();
-            if (TextUtilsCompat.getLayoutDirectionFromLocale(
-                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+            if (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR)
             {
                 rectF.set(relativeClipPosition * width, 0.0f, width + relativeClipPosition * rightButtonWidth, height);
             }
@@ -1220,17 +1218,6 @@ public class SegmentedButton extends View
                 selectedButtonRadius, selectedButtonRadius, selectedButtonRadius, selectedButtonRadius,
                 selectedButtonRadius
         };
-
-        if (selectedButtonRadius > 0)
-        {
-            // Canvas.clipPath, used in onDraw for drawing the selected button clip path is not supported with
-            // hardware acceleration until API 18. Thus, this switches to software acceleration if current Android
-            // API version is less than 18.
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2)
-            {
-                setLayerType(LAYER_TYPE_SOFTWARE, null);
-            }
-        }
 
         // Update background bitmaps
         setupBackgroundBitmaps();

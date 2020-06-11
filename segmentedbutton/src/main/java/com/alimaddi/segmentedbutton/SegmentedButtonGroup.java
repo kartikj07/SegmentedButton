@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Outline;
@@ -215,8 +216,7 @@ public class SegmentedButtonGroup extends LinearLayout
         // This is used to provide an outline for the layout because it may have rounded corners
         // The primary benefit to using this is that shadows will follow the contour of the outline rather than the
         // rectangular bounds
-        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
-            setOutlineProvider(new OutlineProvider());
+        setOutlineProvider(new OutlineProvider());
 
         buttons = new ArrayList<>();
 
@@ -379,12 +379,13 @@ public class SegmentedButtonGroup extends LinearLayout
         if (child instanceof SegmentedButton)
         {
             Log.i("sb_find_q", "addView ===========================================================");
-            Log.i("sb_find_q", "LAYOUT_DIRECTION_LTR = " + (getLayoutDirection() == LAYOUT_DIRECTION_LTR));
-            Log.i("sb_find_q", "*LAYOUT_DIRECTION_LTR = " + (buttonLayout.getLayoutDirection() == LAYOUT_DIRECTION_LTR));
-            Log.i("sb_find_q", "**LAYOUT_DIRECTION_LTR = " + (buttonLayout.getParent().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
-            Log.i("sb_find_q", "***LAYOUT_DIRECTION_LTR = " + (TextUtilsCompat.getLayoutDirectionFromLocale(
-                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR));
-
+//            Log.i("sb_find_q", "LAYOUT_DIRECTION_LTR = " + (getLayoutDirection() == LAYOUT_DIRECTION_LTR));
+//            Log.i("sb_find_q", "*LAYOUT_DIRECTION_LTR = " + (buttonLayout.getLayoutDirection() == LAYOUT_DIRECTION_LTR));
+//            Log.i("sb_find_q", "**LAYOUT_DIRECTION_LTR = " + (buttonLayout.getParent().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
+//            Log.i("sb_find_q", "***LAYOUT_DIRECTION_LTR = " + (TextUtilsCompat.getLayoutDirectionFromLocale(
+//                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR));
+            Log.i("sb_find_q", "****LAYOUT_DIRECTION_LTR = " + (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
+            boolean isLTR = getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR;
             final SegmentedButton button = (SegmentedButton)child;
 
             // New position of the button will be the size of the buttons before the button is added
@@ -410,8 +411,8 @@ public class SegmentedButtonGroup extends LinearLayout
 
                 // Find the first visible button to the left of this button (or null if none)
                 SegmentedButton leftButton = null;
-                if (TextUtilsCompat.getLayoutDirectionFromLocale(
-                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+                Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + isLTR);
+                if (isLTR)
                 {
                     for (int i = index1 - 1; i >= 0; --i)
                     {
@@ -439,8 +440,8 @@ public class SegmentedButtonGroup extends LinearLayout
 
                 // Find the first visible button to the right of this button (or null if none)
                 SegmentedButton rightButton = null;
-                if (TextUtilsCompat.getLayoutDirectionFromLocale(
-                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+                Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + isLTR);
+                if (isLTR)
                 {
                     for (int i = index1 + 1; i < buttons.size(); ++i)
                     {
@@ -530,8 +531,7 @@ public class SegmentedButtonGroup extends LinearLayout
 
             // If this is NOT the first item in the group, then update the previous button and this button with its
             // respective right button and left button.
-            if (TextUtilsCompat.getLayoutDirectionFromLocale(
-                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR && position != 0)
+            if (isLTR && position != 0)
             {
                 // Find the first visible button to the left of this button (or null if none)
                 SegmentedButton leftButton = null;
@@ -559,8 +559,7 @@ public class SegmentedButtonGroup extends LinearLayout
                 // In the case this button is not visible, then it does not matter since it wont be drawn
                 button.setLeftButton(leftButton);
             }
-            else if (TextUtilsCompat.getLayoutDirectionFromLocale(
-                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_RTL && position != 0)
+            else if (!isLTR && position != 0)
             {
                 // Find the first visible button to the left of this button (or null if none)
                 SegmentedButton rightButton = null;
@@ -580,7 +579,7 @@ public class SegmentedButtonGroup extends LinearLayout
                 {
                     rightButton.setLeftButton(button.getVisibility() != GONE ? button : null);
                     // Update background clip path for that button since it may need to add/remove round edges
-                    Log.i("sb_find_q", "addView => setupBackgroundClipPath for right Button of " + (buttons.size() + 1));
+                    Log.i("sb_find_q", "addView => setupBackgroundClipPath for right Button of " + (buttons.indexOf(rightButton)));
                     rightButton.setupBackgroundClipPath();
                 }
 
@@ -590,7 +589,7 @@ public class SegmentedButtonGroup extends LinearLayout
             }
 
             // Sets up the background clip path, selected button clip path, and selected button border
-            Log.i("sb_find_q", "addView => setupBackgroundClipPath for " + (buttons.size() + 1));
+            Log.i("sb_find_q", "addView => setupBackgroundClipPath for " + (buttons.size()));
             button.setupBackgroundClipPath();
             button.setupSelectedButtonClipPath();
             button.setSelectedButtonBorder(selectedBorderWidth, selectedBorderColor, selectedBorderDashWidth,
@@ -602,7 +601,7 @@ public class SegmentedButtonGroup extends LinearLayout
 
             // If the given position to start at is this button, select it
             if (this.position == position)
-                updateSelectedPosition(position);
+                updateSelectedPosition(position, isLTR);
 
             // Add a divider view to the divider layout that mimics the size of the button
             // This view is used as essentially a spacer for the dividers in the divider layout
@@ -639,6 +638,7 @@ public class SegmentedButtonGroup extends LinearLayout
      */
     int getButtonPositionFromX(float x)
     {
+        boolean isLTR = getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR;
         // Loop through each button
         int i = 0;
         for (; i < buttons.size(); ++i)
@@ -648,8 +648,17 @@ public class SegmentedButtonGroup extends LinearLayout
             // If x value is less than the right-hand side of the button, this is the selected button
             // Note: No need to check the left side of button because we assume each button is directly connected
             // from left to right
-            if (button.getVisibility() != GONE && x <= button.getRight())
-                break;
+            if (isLTR)
+            {
+                if (button.getVisibility() != GONE && x <= button.getRight())
+                    break;
+            }
+            else
+            {
+                if (button.getVisibility() != GONE && x >= button.getLeft())
+                    break;
+            }
+
         }
 
         // Return last button if x value is out of bounds
@@ -672,6 +681,7 @@ public class SegmentedButtonGroup extends LinearLayout
      */
     float getButtonPositionFromXF(float x)
     {
+        boolean isLTR = getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR;
         // Loop through each button
         int i = 0;
         for (; i < buttons.size(); ++i)
@@ -681,8 +691,19 @@ public class SegmentedButtonGroup extends LinearLayout
             // If x value is less than the right-hand side of the button, this is the selected button
             // Note: No need to check the left side of button because we assume each button is directly connected
             // from left to right
-            if (button.getVisibility() != GONE && x < button.getRight())
-                return i + (x - button.getLeft()) / button.getWidth();
+            if (isLTR)
+            {
+                if (button.getVisibility() != GONE && x < button.getRight())
+                    return i + (x - button.getLeft()) / button.getWidth();
+            }
+            else
+            {
+                // The -1 is for RTL indexing and the +1 is for make complete of fraction when
+                // we want make clipping right/left in on Draw
+                if (button.getVisibility() != GONE && x > button.getLeft())
+                    return i - 1 + 1 - (x - button.getLeft()) / button.getWidth();
+            }
+
         }
 
         // Return last button if x value is out of bounds
@@ -840,8 +861,8 @@ public class SegmentedButtonGroup extends LinearLayout
         // offset given to the current button is 0.0f -> 1.0f and represents the relative X position to clip the
         // button at (going all the way to the right side of the button, i.e. 0.25 all the way to 1.0)
         final SegmentedButton currentButton = buttons.get(currentButtonPosition);
-        if (TextUtilsCompat.getLayoutDirectionFromLocale(
-                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+        Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
+        if (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR)
             currentButton.clipRight(currentOffset);
         else
             currentButton.clipLeft(currentOffset);
@@ -853,8 +874,8 @@ public class SegmentedButtonGroup extends LinearLayout
         {
             // Grab the button directly to the right of the current button and clip the left
             final SegmentedButton currentEndButton = buttons.get(currentEndButtonPosition);
-            if (TextUtilsCompat.getLayoutDirectionFromLocale(
-                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+            Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
+            if (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR)
                 currentEndButton.clipLeft(currentOffset);
             else
                 currentEndButton.clipRight(currentOffset);
@@ -902,8 +923,10 @@ public class SegmentedButtonGroup extends LinearLayout
      *
      * In addition, the onPositionChangedListener will be called with the updated position.
      */
-    private void updateSelectedPosition(final int position)
+    private void updateSelectedPosition(final int position, final boolean isLTR)
     {
+        Log.i("sb_find_q", "updateSelectedPosition =====");
+        Log.i("sb_find_q", "updateSelectedPosition => position = " + position);
         // Update position, current position and last position to the desired value
         this.position = position;
         this.currentPosition = position;
@@ -917,12 +940,19 @@ public class SegmentedButtonGroup extends LinearLayout
             if (i == position)
             {
                 // Show entire selected view
-                button.clipRight(0.0f);
+                if (isLTR)
+                    button.clipRight(0.0f);
+                else
+                    button.clipRight(1.0f);
+
             }
             else
             {
                 // Hide entire selected view
-                button.clipRight(1.0f);
+                if (isLTR)
+                    button.clipRight(1.0f);
+                else
+                    button.clipRight(0.0f);
             }
         }
 
@@ -1358,6 +1388,7 @@ public class SegmentedButtonGroup extends LinearLayout
      */
     public void setPosition(final int position, final boolean animate)
     {
+        boolean isLTR = getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR;
         // Return and do nothing in two cases
         // First, if the position is out of bounds.
         // Second, if the desired position is equal to the current position do nothing. But, only do this under two
@@ -1372,7 +1403,7 @@ public class SegmentedButtonGroup extends LinearLayout
         // If not animating or if the animation interpolator is null, then just update the selected position
         if (!animate || selectionAnimationInterpolator == null)
         {
-            updateSelectedPosition(position);
+            updateSelectedPosition(position, isLTR);
             return;
         }
 
@@ -1380,8 +1411,8 @@ public class SegmentedButtonGroup extends LinearLayout
         // GONE. Add to a list for later
         final List<Integer> buttonGoneIndices = new ArrayList<>();
         final boolean movingRight;
-        if (TextUtilsCompat.getLayoutDirectionFromLocale(
-                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
+        Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + isLTR);
+        if (isLTR)
         {
             movingRight = currentPosition < position;
             if (movingRight)
@@ -1482,7 +1513,7 @@ public class SegmentedButtonGroup extends LinearLayout
             {
                 // Update the position of the button at the end of the animation
                 // Also resets all buttons to their appropriate state in case the animation went wrong in any way
-                updateSelectedPosition(position);
+                updateSelectedPosition(position, isLTR);
 
                 // Note: Odd bug where this specific onAnimationEnd has to be overridden in order for the animation
                 // end to be called. Originally the onAnimationEnd(animation, isReserve) operator was used but this

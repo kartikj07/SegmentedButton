@@ -592,14 +592,16 @@
             android:layout_margin="4dp"
             android:elevation="2dp"
             android:background="@color/white"
-            app:position="0"
+            app:position="1"
             app:radius="30dp"
+                app:ripple="false"
             app:rippleColor="@color/black"
             app:selectedBackground="@color/blue_500"
             app:selectedBorderColor="#555555"
             app:selectedBorderWidth="2dp"
             app:selectedButtonRadius="30dp"
-            app:selectionAnimationDuration="200">
+            app:selectionAnimationDuration="200"
+                app:draggable="true">
 
             <com.alimaddi.segmentedbutton.SegmentedButton
                 android:layout_width="0dp"
