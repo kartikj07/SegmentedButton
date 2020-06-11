@@ -21,6 +21,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -260,6 +261,7 @@ public class SegmentedButtonGroup extends LinearLayout
         dividerLayout.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                                                                    LayoutParams.MATCH_PARENT));
         dividerLayout.setOrientation(LinearLayout.HORIZONTAL);
+        dividerLayout.setGravity(Gravity.CENTER_VERTICAL);
         dividerLayout.setClickable(false);
         dividerLayout.setFocusable(false);
         container.addView(dividerLayout);
@@ -272,29 +274,29 @@ public class SegmentedButtonGroup extends LinearLayout
     {
         // According to docs for obtainStyledAttributes, attrs can be null and I assume that each value will be set
         // to the default
-        final TypedArray ta = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SegmentedButtonGroup, 0, 0);
+        final TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SegmentedButtonGroup, 0, 0);
 
         // Load background if available, this can be a drawable or a color
         // Note: Not well documented but getDrawable will return a ColorDrawable if a color is specified
-        if (ta.hasValue(R.styleable.SegmentedButtonGroup_android_background))
-            backgroundDrawable = ta.getDrawable(R.styleable.SegmentedButtonGroup_android_background);
+        if (typedArray.hasValue(R.styleable.SegmentedButtonGroup_android_background))
+            backgroundDrawable = typedArray.getDrawable(R.styleable.SegmentedButtonGroup_android_background);
 
         // Load background on selection if available, can be drawable or color
-        if (ta.hasValue(R.styleable.SegmentedButtonGroup_selectedBackground))
-            selectedBackgroundDrawable = ta.getDrawable(R.styleable.SegmentedButtonGroup_selectedBackground);
+        if (typedArray.hasValue(R.styleable.SegmentedButtonGroup_selectedBackground))
+            selectedBackgroundDrawable = typedArray.getDrawable(R.styleable.SegmentedButtonGroup_selectedBackground);
 
         // Note: Must read radius before setBorder call in order to round the border corners!
-        radius = ta.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_radius, 0);
-        selectedButtonRadius = ta.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_selectedButtonRadius, 0);
+        radius = typedArray.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_radius, 0);
+        selectedButtonRadius = typedArray.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_selectedButtonRadius, 0);
 
         // Setup border for button group
         // Width is the thickness of the border, color is the color of the border
         // Dash width and gap, if the dash width is not zero will make the border dashed with a ratio between dash
         // width and gap
-        borderWidth = ta.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_borderWidth, 0);
-        borderColor = ta.getColor(R.styleable.SegmentedButtonGroup_borderColor, Color.BLACK);
-        borderDashWidth = ta.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_borderDashWidth, 0);
-        borderDashGap = ta.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_borderDashGap, 0);
+        borderWidth = typedArray.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_borderWidth, 0);
+        borderColor = typedArray.getColor(R.styleable.SegmentedButtonGroup_borderColor, Color.BLACK);
+        borderDashWidth = typedArray.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_borderDashWidth, 0);
+        borderDashGap = typedArray.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_borderDashGap, 0);
 
         // Set the border to the read values, this will set the border values to itself but will create a
         // GradientDrawable containing the border
@@ -303,31 +305,31 @@ public class SegmentedButtonGroup extends LinearLayout
         // Get border information for the selected button
         // Same defaults as the border above, however this border information will be passed to each button so that
         // the correct border can be rendered around the selected button
-        selectedBorderWidth = ta.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_selectedBorderWidth, 0);
-        selectedBorderColor = ta.getColor(R.styleable.SegmentedButtonGroup_selectedBorderColor, Color.BLACK);
-        selectedBorderDashWidth = ta.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_selectedBorderDashWidth, 0);
-        selectedBorderDashGap = ta.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_selectedBorderDashGap, 0);
+        selectedBorderWidth = typedArray.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_selectedBorderWidth, 0);
+        selectedBorderColor = typedArray.getColor(R.styleable.SegmentedButtonGroup_selectedBorderColor, Color.BLACK);
+        selectedBorderDashWidth = typedArray.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_selectedBorderDashWidth, 0);
+        selectedBorderDashGap = typedArray.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_selectedBorderDashGap, 0);
 
-        position = ta.getInt(R.styleable.SegmentedButtonGroup_position, 0);
-        draggable = ta.getBoolean(R.styleable.SegmentedButtonGroup_draggable, false);
+        position = typedArray.getInt(R.styleable.SegmentedButtonGroup_position, 0);
+        draggable = typedArray.getBoolean(R.styleable.SegmentedButtonGroup_draggable, false);
 
         // Update clickable property
         // Not updating this property sets the clickable value to false by default but this sets the default to true
         // while keeping the clickable value if specified in the layouot XML
-        setClickable(ta.getBoolean(R.styleable.SegmentedButtonGroup_android_clickable, true));
+        setClickable(typedArray.getBoolean(R.styleable.SegmentedButtonGroup_android_clickable, true));
 
-        ripple = ta.getBoolean(R.styleable.SegmentedButtonGroup_ripple, true);
-        hasRippleColor = ta.hasValue(R.styleable.SegmentedButtonGroup_rippleColor);
-        rippleColor = ta.getColor(R.styleable.SegmentedButtonGroup_rippleColor, Color.GRAY);
+        ripple = typedArray.getBoolean(R.styleable.SegmentedButtonGroup_ripple, true);
+        hasRippleColor = typedArray.hasValue(R.styleable.SegmentedButtonGroup_rippleColor);
+        rippleColor = typedArray.getColor(R.styleable.SegmentedButtonGroup_rippleColor, Color.GRAY);
 
-        final int dividerWidth = ta.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_dividerWidth, 1);
-        final int dividerRadius = ta.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_dividerRadius, 0);
-        final int dividerPadding = ta.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_dividerPadding, 0);
+        final int dividerWidth = typedArray.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_dividerWidth, 1);
+        final int dividerRadius = typedArray.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_dividerRadius, 0);
+        final int dividerPadding = typedArray.getDimensionPixelSize(R.styleable.SegmentedButtonGroup_dividerPadding, 0);
 
         // Load divider value if available, the divider can be either a drawable resource or a color
         // Load the TypedValue first and check the type to determine if color or drawable
         final TypedValue value = new TypedValue();
-        if (ta.getValue(R.styleable.SegmentedButtonGroup_divider, value))
+        if (typedArray.getValue(R.styleable.SegmentedButtonGroup_divider, value))
         {
             if (value.type == TypedValue.TYPE_REFERENCE || value.type == TypedValue.TYPE_STRING)
             {
@@ -337,7 +339,7 @@ public class SegmentedButtonGroup extends LinearLayout
                 // Loading drawable TypedArray.getDrawable or doing TypedArray.getResourceId fixes the problem
                 if (isInEditMode())
                 {
-                    setDivider(ta.getDrawable(R.styleable.SegmentedButtonGroup_divider), dividerWidth, dividerRadius,
+                    setDivider(typedArray.getDrawable(R.styleable.SegmentedButtonGroup_divider), dividerWidth, dividerRadius,
                                dividerPadding);
                 }
                 else
@@ -359,13 +361,13 @@ public class SegmentedButtonGroup extends LinearLayout
             }
         }
 
-        int selectionAnimationInterpolator = ta.getInt(R.styleable.SegmentedButtonGroup_selectionAnimationInterpolator,
+        int selectionAnimationInterpolator = typedArray.getInt(R.styleable.SegmentedButtonGroup_selectionAnimationInterpolator,
                                                        ANIM_INTERPOLATOR_FAST_OUT_SLOW_IN);
         setSelectionAnimationInterpolator(selectionAnimationInterpolator);
-        selectionAnimationDuration = ta.getInt(R.styleable.SegmentedButtonGroup_selectionAnimationDuration, 500);
+        selectionAnimationDuration = typedArray.getInt(R.styleable.SegmentedButtonGroup_selectionAnimationDuration, 500);
 
         // Recycle the typed array, required once done using it
-        ta.recycle();
+        typedArray.recycle();
     }
 
     // endregion
@@ -406,7 +408,10 @@ public class SegmentedButtonGroup extends LinearLayout
                 // Mimic visibility for the corresponding divider (i.e. make visible if parent is visible, invisible
                 // otherwise)
                 final int index1 = SegmentedButtonGroup.this.buttonLayout.indexOfChild(button1);
-                SegmentedButtonGroup.this.dividerLayout.getChildAt(index1).setVisibility(visibility);
+                // change visibility of the Button Actor
+                SegmentedButtonGroup.this.dividerLayout.getChildAt(index1 * 2).setVisibility(visibility);
+                // change visibility of the Divider
+                SegmentedButtonGroup.this.dividerLayout.getChildAt(index1 * 2 - 1).setVisibility(visibility);
                 Log.i("sb_find_q", "_setOnVisibilityChangedListener => index1 = " + index1);
 
                 // Find the first visible button to the left of this button (or null if none)
@@ -606,14 +611,33 @@ public class SegmentedButtonGroup extends LinearLayout
             // Add a divider view to the divider layout that mimics the size of the button
             // This view is used as essentially a spacer for the dividers in the divider layout
             // The divider view needs to know the divider width in order to offset the width correctly
-            ButtonActor dividerView = new ButtonActor(getContext());
-            dividerView.setButton(button);
-            dividerView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            dividerView.setVisibility(button.getVisibility());
+            ButtonActor buttonActor = new ButtonActor(getContext());
+            buttonActor.setButton(button);
+            buttonActor.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            buttonActor.setVisibility(button.getVisibility());
             Drawable dividerDrawable = dividerLayout.getDividerDrawable();
             if (dividerDrawable != null)
-                dividerView.setDividerWidth(dividerDrawable.getIntrinsicWidth());
-            dividerLayout.addView(dividerView);
+                buttonActor.setDividerWidth(dividerDrawable.getIntrinsicWidth());
+
+            if ((isLTR && !button.isLeftButton()) || (!isLTR && !button.isRightButton()))
+            {
+                Log.i("sb_find_d", "addDivider ===== " + (buttons.size()));
+                Divider divider = new Divider(getContext());
+                divider.setButton(button);
+                divider.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+                divider.setVisibility(VISIBLE);
+                if (dividerDrawable != null)
+                    setDividersDrawable(dividerDrawable, dividerDrawable.getIntrinsicWidth()
+                            , dividerLayout.getDividerPadding());
+                else
+                    setDividersDrawable(null, 0, dividerLayout.getDividerPadding());
+                dividerLayout.addView(divider);
+            }
+
+            dividerLayout.addView(buttonActor);
+            Log.i("sb_find_d", "dividerLayout child count ===== " + (dividerLayout.getChildCount()));
+            dividerLayout.setShowDividers(SHOW_DIVIDER_NONE);
+            dividerLayout.requestLayout();
         }
         else
         {
@@ -1636,6 +1660,7 @@ public class SegmentedButtonGroup extends LinearLayout
         {
             dividerLayout.setDividerDrawable(null);
             dividerLayout.setShowDividers(SHOW_DIVIDER_NONE);
+            setDividersDrawable(null, 0, 0);
             return;
         }
 
@@ -1648,14 +1673,17 @@ public class SegmentedButtonGroup extends LinearLayout
             gradient.setCornerRadius(radius);
 
             dividerLayout.setDividerDrawable(gradient);
+            setDividersDrawable(gradient, width, padding);
         }
         else
         {
             dividerLayout.setDividerDrawable(drawable);
+            setDividersDrawable(drawable, width, padding);
         }
 
         dividerLayout.setDividerPadding(padding);
-        dividerLayout.setShowDividers(SHOW_DIVIDER_MIDDLE);
+//        dividerLayout.setShowDividers(SHOW_DIVIDER_MIDDLE);
+        dividerLayout.setShowDividers(SHOW_DIVIDER_NONE);
 
         // Loop through and update the divider width for each of the dummy divider views
         for (int i = 0; i < dividerLayout.getChildCount(); ++i)
@@ -1687,7 +1715,9 @@ public class SegmentedButtonGroup extends LinearLayout
 
         dividerLayout.setDividerDrawable(drawable);
         dividerLayout.setDividerPadding(padding);
-        dividerLayout.setShowDividers(SHOW_DIVIDER_MIDDLE);
+//        dividerLayout.setShowDividers(SHOW_DIVIDER_MIDDLE);
+        dividerLayout.setShowDividers(SHOW_DIVIDER_NONE);
+        setDividersDrawable(drawable, width, padding);
 
         // Loop through and update the divider width for each of the dummy divider views
         for (int i = 0; i < dividerLayout.getChildCount(); ++i)
@@ -1695,6 +1725,26 @@ public class SegmentedButtonGroup extends LinearLayout
             final ButtonActor view = (ButtonActor)dividerLayout.getChildAt(i);
             view.setDividerWidth(width);
         }
+        dividerLayout.requestLayout();
+    }
+
+    public void setDividersDrawable(Drawable drawable, int width, int padding)
+    {
+        for (int i = 1; i < dividerLayout.getChildCount(); i += 2)
+        {
+            final Divider view = (Divider) dividerLayout.getChildAt(i);
+            view.setWidth(width);
+            view.setVerticalPadding(padding);
+            if (drawable == null)
+            {
+                view.setVisibility(GONE);
+            }
+            else
+            {
+                view.setBackground(drawable);
+            }
+        }
+
         dividerLayout.requestLayout();
     }
 

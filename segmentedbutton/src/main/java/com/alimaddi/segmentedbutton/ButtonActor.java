@@ -1,9 +1,11 @@
 package com.alimaddi.segmentedbutton;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  * Empty, transparent view used as a "dummy" or filler view
@@ -24,6 +26,7 @@ class ButtonActor extends View
     public ButtonActor(Context context)
     {
         super(context);
+        setBackgroundColor(Color.argb(150,0, 0, 255));
     }
 
     public ButtonActor(Context context, @Nullable AttributeSet attrs)
