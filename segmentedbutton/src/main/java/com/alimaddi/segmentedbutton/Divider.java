@@ -16,20 +16,18 @@ import androidx.core.content.ContextCompat;
  */
 class Divider extends View
 {
-//    private static int color = 0;
     // Button to mimics size of
     private SegmentedButton button = null;
 
     // Divider width
     private int customWidth = 0;
+
     // Divider padding
     private int padding = 0;
 
     public Divider(Context context)
     {
         super(context);
-//        setBackground(ContextCompat.getDrawable(context, R.drawable.back_test));
-//        setBackgroundColor(Color.argb(255, 0, color+=80, 0));
     }
 
     public Divider(Context context, @Nullable AttributeSet attrs)
@@ -49,8 +47,9 @@ class Divider extends View
 
     public void setWidth(int width)
     {
-        customWidth = width;
+        this.customWidth = width;
     }
+
     public void setVerticalPadding(int padding)
     {
         this.padding = padding;

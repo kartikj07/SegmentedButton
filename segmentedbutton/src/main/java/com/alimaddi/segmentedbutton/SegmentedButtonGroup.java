@@ -380,20 +380,12 @@ public class SegmentedButtonGroup extends LinearLayout
     {
         if (child instanceof SegmentedButton)
         {
-            Log.i("sb_find_q", "addView ===========================================================");
-//            Log.i("sb_find_q", "LAYOUT_DIRECTION_LTR = " + (getLayoutDirection() == LAYOUT_DIRECTION_LTR));
-//            Log.i("sb_find_q", "*LAYOUT_DIRECTION_LTR = " + (buttonLayout.getLayoutDirection() == LAYOUT_DIRECTION_LTR));
-//            Log.i("sb_find_q", "**LAYOUT_DIRECTION_LTR = " + (buttonLayout.getParent().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
-//            Log.i("sb_find_q", "***LAYOUT_DIRECTION_LTR = " + (TextUtilsCompat.getLayoutDirectionFromLocale(
-//                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR));
-            Log.i("sb_find_q", "****LAYOUT_DIRECTION_LTR = " + (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
             boolean isLTR = getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR;
             final SegmentedButton button = (SegmentedButton)child;
 
             // New position of the button will be the size of the buttons before the button is added
             // For example, if there are 5 buttons, then the indices are 0, 1, 2, 3, 4, so the next index is 5!
             final int position = buttons.size();
-            Log.i("sb_find_q", "addView => current buttons.size() = " + buttons.size());
 
             // Give radius, selected button radius, default background and default selected background to the button
             // The default backgrounds will only update the background of the button if there is not a background set
@@ -412,11 +404,9 @@ public class SegmentedButtonGroup extends LinearLayout
                 SegmentedButtonGroup.this.dividerLayout.getChildAt(index1 * 2).setVisibility(visibility);
                 // change visibility of the Divider
                 SegmentedButtonGroup.this.dividerLayout.getChildAt(index1 * 2 - 1).setVisibility(visibility);
-                Log.i("sb_find_q", "_setOnVisibilityChangedListener => index1 = " + index1);
 
                 // Find the first visible button to the left of this button (or null if none)
                 SegmentedButton leftButton = null;
-                Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + isLTR);
                 if (isLTR)
                 {
                     for (int i = index1 - 1; i >= 0; --i)
@@ -445,7 +435,6 @@ public class SegmentedButtonGroup extends LinearLayout
 
                 // Find the first visible button to the right of this button (or null if none)
                 SegmentedButton rightButton = null;
-                Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + isLTR);
                 if (isLTR)
                 {
                     for (int i = index1 + 1; i < buttons.size(); ++i)
@@ -556,7 +545,6 @@ public class SegmentedButtonGroup extends LinearLayout
                 {
                     leftButton.setRightButton(button.getVisibility() != GONE ? button : null);
                     // Update background clip path for that button since it may need to add/remove round edges
-                    Log.i("sb_find_q", "addView => setupBackgroundClipPath for left Button of " + (buttons.size() + 1));
                     leftButton.setupBackgroundClipPath();
                 }
 
@@ -584,7 +572,6 @@ public class SegmentedButtonGroup extends LinearLayout
                 {
                     rightButton.setLeftButton(button.getVisibility() != GONE ? button : null);
                     // Update background clip path for that button since it may need to add/remove round edges
-                    Log.i("sb_find_q", "addView => setupBackgroundClipPath for right Button of " + (buttons.indexOf(rightButton)));
                     rightButton.setupBackgroundClipPath();
                 }
 
@@ -594,7 +581,6 @@ public class SegmentedButtonGroup extends LinearLayout
             }
 
             // Sets up the background clip path, selected button clip path, and selected button border
-            Log.i("sb_find_q", "addView => setupBackgroundClipPath for " + (buttons.size()));
             button.setupBackgroundClipPath();
             button.setupSelectedButtonClipPath();
             button.setSelectedButtonBorder(selectedBorderWidth, selectedBorderColor, selectedBorderDashWidth,
@@ -621,7 +607,6 @@ public class SegmentedButtonGroup extends LinearLayout
 
             if ((isLTR && !button.isLeftButton()) || (!isLTR && !button.isRightButton()))
             {
-                Log.i("sb_find_d", "addDivider =====  buttons count = " + (buttons.size()));
                 Divider divider = new Divider(getContext());
                 divider.setButton(button);
                 divider.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -635,7 +620,6 @@ public class SegmentedButtonGroup extends LinearLayout
             }
 
             dividerLayout.addView(buttonActor);
-            Log.i("sb_find_d", "addView => dividerLayout child count ===== " + (dividerLayout.getChildCount()));
 //            dividerLayout.setShowDividers(SHOW_DIVIDER_NONE);
 //            dividerLayout.requestLayout();
         }
@@ -856,7 +840,6 @@ public class SegmentedButtonGroup extends LinearLayout
     private void moveSelectedButton(final float position)
     {
         boolean isLTR = getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR;
-        Log.i("sb_find_q", "moveSelectedButton =====");
         // Update current position to be the animated value
         // This is a float value indicating where the left-side of the button is located
         // For example, a currentPosition of 1.0 would mean all of button 1 was selected
@@ -868,7 +851,6 @@ public class SegmentedButtonGroup extends LinearLayout
         // result in a currentButtonPosition of 2 and the currentOffset to 0.25.
         final int currentButtonPosition = (int)currentPosition;
         final float currentOffset = currentPosition - currentButtonPosition;
-        Log.i("sb_find_a", "moveSelectedButton ==> currentButtonPosition = " + currentButtonPosition + "  :  currentOffset = " + currentOffset);
 
         // Get the current button end position, which will start at the current button plus 1 because the width of the
         // selected button is 1. Check each button to the right for the first one that is not GONE
@@ -887,7 +869,6 @@ public class SegmentedButtonGroup extends LinearLayout
         // offset given to the current button is 0.0f -> 1.0f and represents the relative X position to clip the
         // button at (going all the way to the right side of the button, i.e. 0.25 all the way to 1.0)
         final SegmentedButton currentButton = buttons.get(currentButtonPosition);
-        Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + isLTR);
         if (isLTR)
             currentButton.clipRight(currentOffset);
         else
@@ -900,7 +881,6 @@ public class SegmentedButtonGroup extends LinearLayout
         {
             // Grab the button directly to the right of the current button and clip the left
             final SegmentedButton currentEndButton = buttons.get(currentEndButtonPosition);
-            Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + isLTR);
             if (isLTR)
                 currentEndButton.clipLeft(currentOffset);
             else
@@ -959,8 +939,6 @@ public class SegmentedButtonGroup extends LinearLayout
      */
     private void updateSelectedPosition(final int position, final boolean isLTR)
     {
-        Log.i("sb_find_q", "updateSelectedPosition =====");
-        Log.i("sb_find_q", "updateSelectedPosition => position = " + position);
         // Update position, current position and last position to the desired value
         this.position = position;
         this.currentPosition = position;
@@ -1422,7 +1400,6 @@ public class SegmentedButtonGroup extends LinearLayout
      */
     public void setPosition(final int position, final boolean animate)
     {
-        Log.i("sb_find_q", "setPosition =====");
         boolean isLTR = getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR;
         // Return and do nothing in two cases
         // First, if the position is out of bounds.
@@ -1446,7 +1423,6 @@ public class SegmentedButtonGroup extends LinearLayout
         // GONE. Add to a list for later
         final List<Integer> buttonGoneIndices = new ArrayList<>();
         final boolean movingRight;
-        Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + isLTR);
         if (isLTR)
         {
             movingRight = currentPosition < position;
@@ -1503,14 +1479,10 @@ public class SegmentedButtonGroup extends LinearLayout
             buttonAnimator = ValueAnimator.ofFloat(currentPosition,
                                                    movingRight ? position + buttonGoneIndices.size() : position - buttonGoneIndices.size());
         }
-        Log.i("sb_find_v", "======================================================================================================================");
-        Log.i("sb_find_a", "======================================================================================================================");
         // For each update to the animation value, move the button
         buttonAnimator.addUpdateListener(animation -> {
             float value = (float)animation.getAnimatedValue();
 
-            Log.i("sb_find_v", "animator ==> currentPosition = " + currentPosition + "  :  animatedValue = " + value
-                    + "  :  position = " + position);
             // Account for GONE buttons in between the indices
             // Depending on if we're moving left/right, we add/subtract one when a button is missing
             // This will skip the GONE button
@@ -1730,13 +1702,10 @@ public class SegmentedButtonGroup extends LinearLayout
 
     public void setDividersDrawable(Drawable drawable, int width, int padding)
     {
-        Log.i("sb_find_d", "setDividersDrawable ======================================= ");
-        Log.i("sb_find_d", "setDividersDrawable => divider layout child count ===== " + (dividerLayout.getChildCount()));
         for (int i = 0; i < dividerLayout.getChildCount(); i ++)
         {
             if (!(dividerLayout.getChildAt(i) instanceof Divider))
                 continue;
-            Log.i("sb_find_d", "setDividersDrawable => index = " + (i));
             final Divider view = (Divider) dividerLayout.getChildAt(i);
             view.setWidth(width);
             view.setVerticalPadding(padding);

@@ -489,7 +489,6 @@ public class SegmentedButton extends View
     @Override
     protected void onSizeChanged(final int w, final int h, final int oldWidth, final int oldHeight)
     {
-        Log.i("sb_find_q", "onSizeChanged =====");
         super.onSizeChanged(w, h, oldWidth, oldHeight);
 
         // Calculate new positions and bounds for text & drawable
@@ -546,7 +545,6 @@ public class SegmentedButton extends View
      */
     private void updateSize()
     {
-        Log.i("sb_find_q", "updateSize =====");
         final int width = getWidth();
         final int height = getHeight();
         final int textWidth = hasText ? textStaticLayout.getWidth() : 0;
@@ -582,7 +580,6 @@ public class SegmentedButton extends View
             }
             else if (drawableGravity == Gravity.START)
             {
-                Log.i("sb_find_q", "=>LAYOUT_DIRECTION_LTR = " + (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR));
                 if (getResources().getConfiguration().getLayoutDirection() == LAYOUT_DIRECTION_LTR)
                 {
                     textPosition.x = startPosition + drawableWidth + drawablePadding;
@@ -1108,7 +1105,6 @@ public class SegmentedButton extends View
      */
     void setupBackgroundClipPath()
     {
-        Log.i("sb_find_q", "setupBackgroundClipPath =====");
         // If there is no background radius then skip
         if (backgroundRadius == 0)
         {
@@ -1124,11 +1120,9 @@ public class SegmentedButton extends View
 
         // Background radius, shorthand variable to make code cleaner
         final float br = backgroundRadius;
-        Log.i("sb_find_q", "setupBackgroundClipPath =>  backgroundRadius = " + backgroundRadius);
 
         if (isRounded() || (isLeftButton() && isRightButton()))
         {
-            Log.i("sb_find_q", "setupBackgroundClipPath =>  isRounded = " + isRounded());
             // Add radius on all sides, left & right
             backgroundClipPath = new Path();
             backgroundClipPath.addRoundRect(rectF,
@@ -1136,21 +1130,18 @@ public class SegmentedButton extends View
         }
         else if (isLeftButton())
         {
-            Log.i("sb_find_q", "setupBackgroundClipPath =>  isLeftButton = " + isLeftButton());
             // Add radius on left side only
             backgroundClipPath = new Path();
             backgroundClipPath.addRoundRect(rectF, new float[] {br, br, 0, 0, 0, 0, br, br}, Direction.CW);
         }
         else if (isRightButton())
         {
-            Log.i("sb_find_q", "setupBackgroundClipPath =>  isRightButton = " + isRightButton());
             // Add radius on right side only
             backgroundClipPath = new Path();
             backgroundClipPath.addRoundRect(rectF, new float[] {0, 0, br, br, br, br, 0, 0}, Direction.CW);
         }
         else
         {
-            Log.i("sb_find_q", "setupBackgroundClipPath =>  else = ");
             backgroundClipPath = null;
         }
 
