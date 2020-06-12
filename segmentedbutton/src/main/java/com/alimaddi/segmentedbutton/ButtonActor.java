@@ -26,7 +26,6 @@ class ButtonActor extends View
     public ButtonActor(Context context)
     {
         super(context);
-        setBackgroundColor(Color.argb(150,0, 0, 255));
     }
 
     public ButtonActor(Context context, @Nullable AttributeSet attrs)

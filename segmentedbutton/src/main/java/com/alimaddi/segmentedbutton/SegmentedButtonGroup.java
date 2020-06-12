@@ -621,23 +621,23 @@ public class SegmentedButtonGroup extends LinearLayout
 
             if ((isLTR && !button.isLeftButton()) || (!isLTR && !button.isRightButton()))
             {
-                Log.i("sb_find_d", "addDivider ===== " + (buttons.size()));
+                Log.i("sb_find_d", "addDivider =====  buttons count = " + (buttons.size()));
                 Divider divider = new Divider(getContext());
                 divider.setButton(button);
                 divider.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-                divider.setVisibility(VISIBLE);
+                divider.setVisibility(button.getVisibility());
+                dividerLayout.addView(divider);
                 if (dividerDrawable != null)
                     setDividersDrawable(dividerDrawable, dividerDrawable.getIntrinsicWidth()
                             , dividerLayout.getDividerPadding());
                 else
                     setDividersDrawable(null, 0, dividerLayout.getDividerPadding());
-                dividerLayout.addView(divider);
             }
 
             dividerLayout.addView(buttonActor);
-            Log.i("sb_find_d", "dividerLayout child count ===== " + (dividerLayout.getChildCount()));
-            dividerLayout.setShowDividers(SHOW_DIVIDER_NONE);
-            dividerLayout.requestLayout();
+            Log.i("sb_find_d", "addView => dividerLayout child count ===== " + (dividerLayout.getChildCount()));
+//            dividerLayout.setShowDividers(SHOW_DIVIDER_NONE);
+//            dividerLayout.requestLayout();
         }
         else
         {
@@ -1730,8 +1730,13 @@ public class SegmentedButtonGroup extends LinearLayout
 
     public void setDividersDrawable(Drawable drawable, int width, int padding)
     {
-        for (int i = 1; i < dividerLayout.getChildCount(); i += 2)
+        Log.i("sb_find_d", "setDividersDrawable ======================================= ");
+        Log.i("sb_find_d", "setDividersDrawable => divider layout child count ===== " + (dividerLayout.getChildCount()));
+        for (int i = 0; i < dividerLayout.getChildCount(); i ++)
         {
+            if (!(dividerLayout.getChildAt(i) instanceof Divider))
+                continue;
+            Log.i("sb_find_d", "setDividersDrawable => index = " + (i));
             final Divider view = (Divider) dividerLayout.getChildAt(i);
             view.setWidth(width);
             view.setVerticalPadding(padding);

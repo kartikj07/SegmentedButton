@@ -86,14 +86,23 @@
                     app:text="Button 3"
                     app:textColor="@color/black" />
 
-<!--                <com.alimaddi.segmentedbutton.SegmentedButton-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:padding="8dp"-->
-<!--                        app:selectedTextColor="@color/white"-->
-<!--                        app:text="Button 4"-->
-<!--                        app:textColor="@color/black" />-->
+                <com.alimaddi.segmentedbutton.SegmentedButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        app:selectedTextColor="@color/white"
+                        app:text="Button 4"
+                        app:textColor="@color/black" />
+
+                <com.alimaddi.segmentedbutton.SegmentedButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        app:selectedTextColor="@color/white"
+                        app:text="Button 5"
+                        app:textColor="@color/black" />
             </com.alimaddi.segmentedbutton.SegmentedButtonGroup>
 
         </LinearLayout>
