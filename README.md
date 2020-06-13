@@ -1,4 +1,4 @@
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SegmentedButton-green.svg?style=true)](https://android-arsenal.com/details/1/4445) [![](https://jitpack.io/v/addisonelliott/segmentedbutton.svg)](https://jitpack.io/#addisonelliott/segmentedbutton)
+[![](https://jitpack.io/v/addisonelliott/segmentedbutton.svg)](https://jitpack.io/#addisonelliott/segmentedbutton)
 
 # SegmentedButton
 
@@ -12,11 +12,12 @@ Android view that mimics iOS's [SegmentedControl](https://developer.apple.com/de
 * Ripple effect on button tap
 * Draggable buttons
 * Animations
-* Support for API 16+
+* Support for API 23+
+* Support RTL Language
 
 ## Old Library
 
-This project is originally forked from [ceryle/SegmentedButton](https://github.com/ceryle/SegmentedButton) but has been revamped and given some TLC. The parent repository has been stagnant since **October 17th, 2017**.
+This project is originally forked from [addisonElliott/SegmentedButton](https://github.com/addisonElliott/SegmentedButton).
 
 ## Preview
 
@@ -34,7 +35,7 @@ This project is originally forked from [ceryle/SegmentedButton](https://github.c
 [![12](https://www.addisonelliott.net/SegmentedButtonImages/RoundedTransparentButtons.gif)](https://github.com/addisonElliott/SegmentedButton/blob/master/sample/src/main/res/layout/activity_main.xml#L634)
 [![12](https://www.addisonelliott.net/SegmentedButtonImages/SportsEquipment.gif)](https://github.com/addisonElliott/SegmentedButton/blob/master/sample/src/main/res/layout/activity_main.xml#L690)
 
-Code for all images can be found in the [sample project](https://github.com/addisonElliott/SegmentedButton/blob/master/sample/src/main/res/layout/activity_main.xml)
+Code for all images can be found in the [sample project](https://github.com/Yasilis/SegmentedButton/blob/master/app/src/main/res/layout/activity_main.xml)
 
 ## Installation
 
@@ -150,7 +151,7 @@ segmentedButtonGroup.setOnPositionChangedListener(new OnPositionChangedListener(
 segmentedButtonGroup.getPosition();
 ```
 
-Check out the [sample project](https://github.com/addisonElliott/SegmentedButton/blob/master/sample/src/main/res/layout/activity_main.xml) for additional examples
+Check out the [sample project](https://github.com/Yasilis/SegmentedButton/blob/master/app/src/main/res/layout/activity_main.xml) for additional examples
 
 ## Attributes
 
@@ -234,6 +235,7 @@ This project is licensed under the Apache License Version 2.0 - see the [LICENSE
 ```
 Copyright (C) 2016 ceryle
 Copyright (C) 2019 Addison Elliott
+Copyright (C) 2020 Ali Maddi
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
