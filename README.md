@@ -53,12 +53,12 @@ and:
 
 ```gradle
 dependencies {
-    implementation 'com.github.addisonelliott:SegmentedButton:$LATEST_VERSION'
+    implementation 'com.github.Yasilis:SegmentedButton:$LATEST_VERSION'
 }
 ```
 
 **Note:** The `$LATEST_VERSION` string should be replaced with the latest version. The available versions can be found
-here: https://jitpack.io/#addisonElliott/SegmentedButton
+here: https://jitpack.io/#Yasilis/SegmentedButton
 
 **Note:** This library uses the AndroidX packages rather than the older Android support libraries. Periodic releases
 with the Android support library will be released based on user demand with the version appended with `-support` (e.g.
