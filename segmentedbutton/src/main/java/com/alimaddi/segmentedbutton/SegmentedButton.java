@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2020 Ali Maddi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.alimaddi.segmentedbutton;
 
 import android.annotation.SuppressLint;
@@ -32,7 +47,6 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -44,16 +58,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.text.TextUtilsCompat;
-import androidx.core.view.ViewCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-//import codetail.graphics.drawables.DrawableHotspotTouch;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.Locale;
 
 //@SuppressWarnings("unused")
-//@SuppressLint("RtlHardcoded")
 public class SegmentedButton extends View
 {
     // region Variables & Constants
@@ -66,7 +75,6 @@ public class SegmentedButton extends View
     // A ColorDrawable has no intrinsic size on its own, so this size is used instead
     private static final int COLOR_DRAWABLE_SIZE = 2;
 
-    // TODO : find out what is this
     @IntDef(flag = true, value = {
             Gravity.START,
             Gravity.END,
@@ -74,7 +82,6 @@ public class SegmentedButton extends View
             Gravity.BOTTOM,
     })
 
-    // TODO : find out what is this
     @Retention(RetentionPolicy.SOURCE)
     private @interface GravityOptions {}
 
@@ -1149,8 +1156,8 @@ public class SegmentedButton extends View
         // right-most buttons) is not supported with hardware acceleration until API 18
         // Thus, switch to software acceleration if the background clip path is not null (meaning the edges are
         // rounded) and the current version is less than 18
-        if (backgroundClipPath != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2)
-            setLayerType(LAYER_TYPE_SOFTWARE, null);
+//        if (backgroundClipPath != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2)
+//            setLayerType(LAYER_TYPE_SOFTWARE, null);
 
         // Update background bitmaps
         setupBackgroundBitmaps();
@@ -1485,31 +1492,14 @@ public class SegmentedButton extends View
     {
         rippleColor = color;
 
-        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
-        {
-            rippleDrawableLollipop = new RippleDrawable(ColorStateList.valueOf(rippleColor), null, null);
-            // setCallback on Drawable allows animations to be scheduled and the drawable to invalidate the view on
-            // animation
-            rippleDrawableLollipop.setCallback(this);
-            rippleDrawableLollipop.setBounds(0, 0, getWidth(), getHeight());
+        rippleDrawableLollipop = new RippleDrawable(ColorStateList.valueOf(rippleColor), null, null);
+        // setCallback on Drawable allows animations to be scheduled and the drawable to invalidate the view on
+        // animation
+        rippleDrawableLollipop.setCallback(this);
+        rippleDrawableLollipop.setBounds(0, 0, getWidth(), getHeight());
 
-            // Disable/nullify the pre-lollipop RippleDrawable backport
-//            rippleDrawable = null;
-        }
-        else
-        {
-//            rippleDrawable = new codetail.graphics.drawables.RippleDrawable(ColorStateList.valueOf(rippleColor), null,
-//                                                                            null);
-            // setCallback on Drawable allows animations to be scheduled and the drawable to invalidate the view on
-            // animation
-//            rippleDrawable.setCallback(this);
-//            rippleDrawable.setBounds(0, 0, getWidth(), getHeight());
-
-//            setOnTouchListener(new DrawableHotspotTouch(rippleDrawable));
-
-            // Disable/nullify the lollipop RippleDrawable
-            rippleDrawableLollipop = null;
-        }
+        // Disable/nullify the pre-lollipop RippleDrawable backport
+        //            rippleDrawable = null;
 
         invalidate();
     }
@@ -1981,11 +1971,6 @@ public class SegmentedButton extends View
      */
     public static Bitmap getBitmapFromVectorDrawable(Drawable vectorDrawable)
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-        {
-            vectorDrawable = (DrawableCompat.wrap(vectorDrawable)).mutate();
-        }
-
         Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
                                             vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);

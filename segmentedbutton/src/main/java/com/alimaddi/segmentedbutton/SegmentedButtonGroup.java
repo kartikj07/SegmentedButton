@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2020 Ali Maddi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.alimaddi.segmentedbutton;
 
 import android.animation.Animator;
@@ -6,7 +21,6 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Outline;
@@ -19,7 +33,6 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -43,8 +56,6 @@ import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
-import androidx.core.text.TextUtilsCompat;
-import androidx.core.view.ViewCompat;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
@@ -52,7 +63,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class SegmentedButtonGroup extends LinearLayout
 {
@@ -1338,8 +1348,7 @@ public class SegmentedButtonGroup extends LinearLayout
             borderDrawable.setCornerRadius(radius - borderWidth / 2.0f);
 
         // Invalidate shadow outline so that it will be updated to follow the new radius
-        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
-            invalidateOutline();
+        invalidateOutline();
     }
 
     /**
@@ -1488,22 +1497,20 @@ public class SegmentedButtonGroup extends LinearLayout
             // This will skip the GONE button
             for (int index : buttonGoneIndices) // TODO : compute this loop, what is true !
             {
-//                if (TextUtilsCompat.getLayoutDirectionFromLocale(
-//                    Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR)
-//                {
+                if (isLTR)
+                {
                     if (movingRight && value >= index)
                         value += 1;
                     else if (!movingRight && value <= index)
                         value -= 1;
-//                }
-//                else
-//                {
-//                    if (movingRight && value <= index)
-//                        value -= 1;
-//                    else if (!movingRight && value >= index)
-//                        value += 1;
-//                }
-
+                }
+                else
+                {
+                    if (movingRight && value <= index)
+                        value -= 1;
+                    else if (!movingRight && value >= index)
+                        value += 1;
+                }
             }
 
             // Move to the new position
