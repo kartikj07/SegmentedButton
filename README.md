@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/addisonelliott/segmentedbutton.svg)](https://jitpack.io/#addisonelliott/segmentedbutton)
+[![](https://jitpack.io/v/Yasilis/SegmentedButton.svg)](https://jitpack.io/#Yasilis/SegmentedButton)
 
 # SegmentedButton
 
