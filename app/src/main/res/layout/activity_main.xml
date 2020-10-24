@@ -57,7 +57,7 @@
                 app:rippleColor="@color/blue_300"
                 app:selectedBackground="@drawable/gradient_drawable_selector"
                 app:selectionAnimationDuration="1000"
-                app:selectionAnimationInterpolator="fastOutSlowIn">
+                app:selectionAnimationInterpolator="fastOutSlowIn" >
 
                 <com.alimaddi.segmentedbutton.SegmentedButton
                     android:layout_width="0dp"

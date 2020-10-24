@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 //import butterknife.BindView;
@@ -207,6 +209,14 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
             updateButton(position);
 
             binding.buttonGroupGradient.setPosition(position, true);
+        });
+
+        binding.buttonGroupGradient.setOnClickListener(new SegmentedButtonGroup.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Toast.makeText(MainActivity.this, "Click Listener", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

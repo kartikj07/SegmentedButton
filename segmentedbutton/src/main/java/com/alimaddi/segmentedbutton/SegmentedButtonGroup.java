@@ -189,7 +189,7 @@ public class SegmentedButtonGroup extends LinearLayout
     // Note: Position change will be notified after animations complete because that is when the position actually
     // changes
     private OnPositionChangedListener onPositionChangedListener;
-
+    private OnClickListener clickListener ;
     // endregion
 
     // region Constructor
@@ -597,6 +597,8 @@ public class SegmentedButtonGroup extends LinearLayout
             button.setupSelectedButtonClipPath();
             button.setSelectedButtonBorder(selectedBorderWidth, selectedBorderColor, selectedBorderDashWidth,
                                            selectedBorderDashGap);
+
+            button.setOnClickListener(SegmentedButtonGroup.this::onClick);
 
             // Add the button to the main group instead and store the button in our buttons list
             buttonLayout.addView(button, params);
@@ -1850,6 +1852,20 @@ public class SegmentedButtonGroup extends LinearLayout
         this.onPositionChangedListener = onPositionChangedListener;
     }
 
+    /**
+     * Sets the listener used for notifying view clicked
+     */
+    public void setOnClickListener(OnClickListener clickListener)
+    {
+        this.clickListener = clickListener;
+    }
+
+    public void onClick(View v)
+    {
+        if (clickListener != null)
+            clickListener.onClick(v);
+    }
+
     // endregion
 
     // region Listeners
@@ -1863,6 +1879,16 @@ public class SegmentedButtonGroup extends LinearLayout
     public interface OnPositionChangedListener
     {
         void onPositionChanged(int position);
+    }
+
+    /**
+     * Interface definition for a callback that will be invoked when a child of the segmented button gtoup clicked
+     *
+     * This callback will be called before the animation is start since invoke onClick of view.
+     */
+    public interface OnClickListener
+    {
+        void onClick(View view);
     }
 
     // endregion
