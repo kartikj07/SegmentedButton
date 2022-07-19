@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 16
         targetSdkVersion 30
         versionCode 5
         versionName "4.0.5"
